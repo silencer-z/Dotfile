@@ -9,9 +9,15 @@ Singleton {
 
     property string filterText: ""
     property string sortMode: "frequency"
+    property var hiddenApps:["electron34","CMake","electron37","btop++","键盘布局测试器","qv4l2","qvidcap","lstopo"]
 
     function getFilteredAndSortedApps() {
         var apps = DesktopEntries.applications.values.filter(entry => {
+
+            if (root.hiddenApps.indexOf(entry.id) !== -1
+                || root.hiddenApps.indexOf(entry.name) !== -1) {
+                return false;
+            }
 
             var searchText = filterText.toLowerCase();
             if (searchText === "")

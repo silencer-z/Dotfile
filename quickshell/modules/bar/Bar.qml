@@ -9,16 +9,12 @@ import "./widgets" as Widgets
 import qs.components as Components
 import qs.services
 
-// PanelWindow {
+
 Item{
     id: root
 
     required property ShellScreen screen
-    // required property var wrapper
-    // color: "transparent"
-    // WlrLayershell.namespace:"QS-Desktop"
-    // WlrLayershell.exclusiveZone:bar.height
-    // WlrLayershell.exclusionMode:ExclusionMode.Ignore
+
     readonly property int exclusiveZone:bar.height
     readonly property var currentMonitor: Brightness.getMonitorForScreen(root.screen)
 
@@ -29,14 +25,7 @@ Item{
 
     implicitHeight:bar.height
 
-    // anchors {
-    //     top: true
-    //     left: true
-    //     bottom: false
-    //     right: true
-    // }
     anchors.top: parent.top
-    // anchors.bottom: parent.bottom
     anchors.left: parent.left
     anchors.right:parent.right
 
@@ -54,13 +43,10 @@ Item{
 
         Item {
             anchors.fill: parent
-            // spacing: 0
 
             RowLayout {
-                // Layout.alignment: Qt.AlignLeft
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
-                // Layout.fillWidth: true
 
                 Widgets.Board {
                     Layout.fillWidth: false

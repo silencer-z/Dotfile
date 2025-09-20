@@ -1,4 +1,5 @@
 import QtQuick
+import Qt5Compat.GraphicalEffects
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Hyprland
@@ -28,9 +29,10 @@ ShellRoot{
                 anchors.top:true
                 anchors.left:true
                 anchors.right:true
-                implicitHeight: bar.height + barPanel.cornerRadius
+                implicitHeight: bar.height + barPanel.cornerRadius + 20
                 screen:modelData
                 exclusiveZone:bar.implicitHeight
+
                 mask: Region {
                     x: bar.x
                     y: bar.y
@@ -38,40 +40,54 @@ ShellRoot{
                     height: bar.height
                 }
 
-                Bar{
-                    id:bar
-                    screen:scope.modelData
-                    // wrapper:barWrapper
+                Item{
+                     anchors.fill: parent // 填充整个窗口
 
-                }
-
-                Components.RoundCorner {
-                    id: leftCorner
-                    anchors {
-                        top: bar.bottom
-                        // bottom: parent.bottom
-                        left: parent.left
+                    // 1. 将 layer effect 应用在这里
+                    layer.enabled: true
+                    layer.effect: DropShadow {
+                        color: "#80000000"
+                        radius: 16
+                        samples: radius * 2
+                        cached: true
                     }
 
-                    size: barPanel.cornerRadius
-                    color: "#1e1e2e"
-                    corner: Components.RoundCorner.CornerEnum.TopLeft
-                }
-                Components.RoundCorner {
-                    id: rightCorner
-                    anchors {
-                        right: parent.right
-                        top:  bar.bottom
+                    Bar{
+                        id:bar
+                        screen:scope.modelData
+
                     }
-                    size: barPanel.cornerRadius
-                    color: "#1e1e2e"
-                    corner: Components.RoundCorner.CornerEnum.TopRight
+
+                    Components.RoundCorner {
+                        id: leftCorner
+                        anchors {
+                            top: bar.bottom
+                            // bottom: parent.bottom
+                            left: parent.left
+                        }
+
+                        size: barPanel.cornerRadius
+                        color: "#1e1e2e"
+                        corner: Components.RoundCorner.CornerEnum.TopLeft
+                    }
+                    Components.RoundCorner {
+                        id: rightCorner
+                        anchors {
+                            right: parent.right
+                            top:  bar.bottom
+                        }
+                        size: barPanel.cornerRadius
+                        color: "#1e1e2e"
+                        corner: Components.RoundCorner.CornerEnum.TopRight
+                    }
+
                 }
+
             }
         }
     }
     Panels.PanelWrapper{
-        id: panelWrapper
+        id:panelWrapper
     }
 
     GlobalShortcut{
@@ -79,7 +95,16 @@ ShellRoot{
         description:qsTr("Start a launcher to execute applications")
 
         onPressed: {
-            panelWrapper.open(Quickshell.shellPath("modules/panels/LaunchPanel.qml"),{"panelWrapper":panelWrapper});
+            panelWrapper.open(Quickshell.shellPath("modules/panels/LaunchPanel.qml"),{});
+        }
+    }
+
+    GlobalShortcut{
+        name:"clipboard"
+        description:qsTr("Start a clipboard to execute applications")
+
+        onPressed: {
+            panelWrapper.open(Quickshell.shellPath("modules/panels/ClipBoardPanel.qml"),{});
         }
     }
 }

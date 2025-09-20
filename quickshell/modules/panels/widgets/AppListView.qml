@@ -34,7 +34,6 @@ ListView {
         width: listView.width
         height: modelData.isHeader?32:60
 
-        property bool hasActions: !modelData.isHeader && modelData.actions && modelData.actions.length > 0
         property bool showActions: true
         opacity: 0
         x: -20
@@ -65,7 +64,7 @@ ListView {
             visible: modelData.isHeader
             color: "transparent"
 
-            scale: appMouseArea.containsMouse ? 1.02 : 1.0
+            // scale: appMouseArea.containsMouse ? 1.02 : 1.0
             Behavior on scale {
                 NumberAnimation {
                     duration: 150
@@ -112,7 +111,7 @@ ListView {
                         sourceSize.height: 42
                         Layout.preferredWidth: 42
                         Layout.preferredHeight: 42
-                        scale: appMouseArea.containsMouse ? 1.1 : 1.0
+                        // scale: appMouseArea.containsMouse ? 1.1 : 1.0
                         Behavior on scale {
                             NumberAnimation {
                                 duration: 200
@@ -149,35 +148,8 @@ ListView {
                             opacity: 0.7
                         }
                     }
-
-                    Image {
-                        source: Quickshell.iconPath("go-next-symbolic")
-                        sourceSize.width: 16
-                        sourceSize.height: 16
-                        Layout.preferredWidth: 16
-                        Layout.preferredHeight: 16
-                        opacity: 0.5
-                        visible: listViewDelegate.hasActions
-                    }
-                }
-
-                MouseArea {
-                    id: appMouseArea
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onEntered: {
-                        if (!listViewDelegate.modelData.isHeader) {
-                            listView.currentIndex = index;
-                        }
-                    }
-                    onClicked: {
-                        if (!listViewDelegate.modelData.isHeader) {
-                            listView.executeApp(listViewDelegate.modelData.entry);
-                        }
-                    }
                 }
             }
-
         }
     }
 }

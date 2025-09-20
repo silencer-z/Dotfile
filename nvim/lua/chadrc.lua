@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-	theme = "tokyonight",
+	theme = "tokyodark",
   -- transparency = true,
   integrations = {
     "notify",
@@ -17,13 +17,18 @@ M.base46 = {
 	},
 }
 
-M.nvdash = {
-  load_on_startup = true 
-}
+-- M.nvdash = {
+--   load_on_startup = true 
+-- }
 M.ui = {
-      tabufline = {
-         lazyload = false
-     }
+  tabufline = {
+    lazyload = false,
+    order = {"treeOffset", "buffers", "tabs"},
+  },
+  statusline = {
+    theme = "minimal",
+    separator_style = "round",
+  },
 }
 
 return M

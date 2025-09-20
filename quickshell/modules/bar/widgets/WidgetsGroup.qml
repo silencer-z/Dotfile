@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 import qs.components
 import qs.services
 
@@ -40,6 +41,13 @@ BarWidget {
                 }
             }
 
+            StyledTooltip{
+                content: "音量: " + Math.round(Audio.sink.audio.volume * 100) + "%"
+            }
+
+            HoverHandler { id: audioHoverHandler }
+            property bool hovered: audioHoverHandler.hovered
+
             MouseArea {
                 anchors.fill: parent
 
@@ -67,6 +75,13 @@ BarWidget {
 
             text:monitor.iconName
             font.pixelSize:22
+
+            StyledTooltip{
+                content: "亮度: " + Math.round(monitor.brightness * 100) + "%"
+            }
+
+            HoverHandler { id: brightnessHoverHandler }
+            property bool hovered: brightnessHoverHandler.hovered
 
             MouseArea {
                 anchors.fill: parent
