@@ -25,6 +25,10 @@ Item {
         ClipModel.refresh()
     }
 
+    function stripLineNumber(text) {
+        return text.replace(/^\s*\d+\s+/, "");
+    }
+
     RowLayout{
         id:title
         anchors.top:parent.top
@@ -93,13 +97,11 @@ Item {
                 height:48
                 radius:10
                 color: ListView.isCurrentItem ? "#313244" : "transparent"
-                // border.color: ListView.isCurrentItem ? "#666" : "transparent"
 
                 StyledText {
                     anchors.fill:parent
-                    // anchors.left: parent.left
                     anchors.margins: 8
-                    text: model.text
+                    text: root.stripLineNumber(model.text)
                     font.pixelSize:15
                     color: "white"
                 }

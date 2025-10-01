@@ -107,4 +107,12 @@ ShellRoot{
             panelWrapper.open(Quickshell.shellPath("modules/panels/ClipBoardPanel.qml"),{});
         }
     }
+    // GlobalShortcut{
+    //     name:"clipboard"
+    //     description:qsTr("Start a clipboard to execute applications")
+
+    //     onPressed: {
+    //         panelWrapper.open(Quickshell.shellPath("modules/panels/DashBoardPanel.qml"),{});
+    //     }
+    // }
 }

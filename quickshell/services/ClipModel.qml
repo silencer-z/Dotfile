@@ -25,8 +25,14 @@ Singleton {
     }
 
     function copy(entry) {
-        Quickshell.execDetached(["bash", "-c", "echo \"" + entry.replace(/"/g, "\\\"") + "\" | cliphist decode | wl-copy"]);
+        Quickshell.execDetached([
+            "bash", "-c",
+            'printf "%s" "$1" | cliphist decode | wl-copy',
+            "quickshell",
+            entry
+        ]);
     }
+
 
     function deleteEntry(entry) {
         deleteProc.entry = entry
@@ -60,7 +66,8 @@ Singleton {
         id: deleteProc
         property string entry: ""
         command: ["bash", "-c",
-            "echo \"" + deleteProc.entry.replace(/"/g, "\\\"") + "\" | cliphist delete"
+                  'printf "%s" "$1" | cliphist delete',
+                  "quickshell", deleteProc.entry
         ]
         onExited: (code, status) => root.refresh()
     }
